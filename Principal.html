@@ -11,15 +11,24 @@
 </head>
 
 <body ng-controller="controladorProyecto">
-    <h3>Seleccione la ciudad</h3>
-    <select ng-model="ciudadSeleccionada" ng-options="c.ciudad for c in ciudades"
-        ng-change="consultarRadiacion(ciudadSeleccionada)">
-        <option></option>
-    </select>
-    <h3>Período de Tiempo</h3>
-    <input type="date" ng-model="desde">
-    <input type="date" ng-model="hasta">
-
+    <h1 class="mb-4">Consulta de Radiación Solar</h1>
+    <div class="row align-items-end">
+        <div class="col-md-4">
+            <label class="form-label">Seleccione la ciudad</label>
+            <select ng-model="ciudadSeleccionada" ng-options="c.ciudad for c in ciudades"
+                ng-change="consultarRadiacion(ciudadSeleccionada)">
+                <option></option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Desde</label>
+            <input type="date" ng-model="desde">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label">Hasta</label>
+            <input type="date" ng-model="hasta">
+        </div>
+    </div>
     <div ng-if="ciudadSeleccionada">
         <h3>Información de la Ciudad</h3>
         <p><strong>Nombre:</strong> {{ ciudadSeleccionada.ciudad }}</p>
@@ -27,19 +36,20 @@
         <p><strong>Longitud:</strong> {{ ciudadSeleccionada.lon }}</p>
     </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Fecha</th>
-                <th>kWh/m²</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="(fecha, valor) in radiacion">
-                <td>{{ fecha }}</td>
-                <td>{{ valor }}</td>
-            </tr>
-        </tbody>
-    </table>
-
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-sm">
+            <thead class="table-light">
+                <tr>
+                    <th>Fecha</th>
+                    <th>kWh/m²</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="(fecha, valor) in radiacion">
+                    <td>{{ fecha }}</td>
+                    <td>{{ valor }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
