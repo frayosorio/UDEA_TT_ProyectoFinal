@@ -19,5 +19,12 @@ app.service("ServicioConsultas", ["$http",
             const url = `${baseUrl}?${queryString}`;
             return $http({ method: 'GET', url: url });
         }
+
+        this.calcularPanelesNecesarios = function (consumoTotalKWh, promedioRadiacionDiaria) {
+            // Suponiendo panel de 0.3 kWh/día, eficiencia del sistema del 80%
+            const kWhPorPanel = promedioRadiacionDiaria * 0.8;
+            const paneles = Math.ceil(consumoTotalKWh / kWhPorPanel);
+            return paneles;
+        }
     }
 ]);

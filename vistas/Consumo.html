@@ -1,0 +1,48 @@
+<div class="container">
+    <h2 class="mb-4">⚡ Equivalencia del Consumo Energético con Energía Solar</h2>
+
+    <form ng-submit="calcularEquivalencia()" class="mb-4">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="ciudad" class="form-label">Selecciona una ciudad:</label>
+                <select class="form-select" ng-model="ciudadSeleccionada" ng-options="c.ciudad for c in ciudades"
+                    >
+                    <option value="">Seleccione una ciudad</option>
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label for="consumo" class="form-label">Consumo energético (en kWh/mes):</label>
+                <input type="number" id="consumo" class="form-control" ng-model="consumoMensual" required min="0">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-5">
+                <label for="fechaInicio" class="form-label">Fecha inicio:</label>
+                <input type="date" class="form-control" id="fechaInicio" ng-model="fechaInicio" required>
+            </div>
+
+            <div class="col-md-5">
+                <label for="fechaFin" class="form-label">Fecha fin:</label>
+                <input type="date" class="form-control" id="fechaFin" ng-model="fechaFin" required>
+            </div>
+            <div class="col-md-2"><button type="submit" class="btn btn-success">Calcular Equivalencia Solar</button>
+            </div>
+        </div>
+
+
+    </form>
+
+    <div ng-if="resultado" class="alert alert-info">
+        <h5>🌞 Resultado de la equivalencia</h5>
+        <p>
+            Para un consumo de <strong>{{ consumoMensual }} kWh/mes</strong> en <strong>{{ ciudadSeleccionada.ciudad
+                }}</strong>,
+            necesitas aproximadamente <strong>{{ resultado.panelesRequeridos }}</strong> paneles solares de 400W para
+            suplir ese consumo,
+            considerando una radiación promedio de <strong>{{ resultado.promedioRadiacion.toFixed(2) }}</strong>
+            kWh/m²/día.
+        </p>
+    </div>
+</div>
