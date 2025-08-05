@@ -1,10 +1,12 @@
-app.controller('ControladorRadiacionSolar', function ($scope, $http) {
+app.controller('ControladorRadiacionSolar', function ($scope, $http, ServicioConsultas) {
 
     $scope.ciudades = [];
     $scope.radiacion = null;
     $scope.grafico = null;
-    $scope.fechaInicio = new Date(2024, 0, 1); // Enero es 0
-    $scope.fechaFin = new Date(2024, 11, 31);  // Diciembre es 11
+    $scope.desde = new Date();
+    $scope.hasta = new Date();
+    $scope.desde.setDate($scope.hasta.getDate() - 30);
+
 
     $http.get('./datos/CoordenadasColombia.json')
         .then(function (respuesta) {
@@ -20,4 +22,19 @@ app.controller('ControladorRadiacionSolar', function ($scope, $http) {
         const day = fecha.getDate().toString().padStart(2, '0');
         return `${year}${month}${day}`;
     }
+
+    $scope.consultarRadiacion = function (ciudad) {
+
+        const inicio = formatearFecha($scope.desde);
+        const fin = formatearFecha($scope.hasta);
+        ServicioConsultas.consultarRadiacion(ciudad.lat,
+            ciudad.lon, inicio, fin
+        ).then(function (resultado) {
+            $scope.radiacion = resultado.data.properties.parameter.ALLSKY_SFC_SW_DWN;
+        }
+        );
+
+    }
+
+
 });
