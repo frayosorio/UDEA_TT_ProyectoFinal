@@ -31,10 +31,15 @@ app.controller('ControladorRadiacionSolar', function ($scope, $http, ServicioCon
             ciudad.lon, inicio, fin
         ).then(function (resultado) {
             $scope.radiacion = resultado.data.properties.parameter.ALLSKY_SFC_SW_DWN;
+
+            $scope.actualizarGrafica();
         }
         );
 
     }
 
-
+    $scope.actualizarGrafica = function () {
+        const canvas = document.getElementById("grafico");
+        
+    }
 });
