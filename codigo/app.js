@@ -13,6 +13,9 @@ app.config(function($routeProvider) {
       templateUrl: 'vistas/Consumo.html',
       controller: 'ControladorConsumo'
     })
+    .when('/introduccionEnergiaSolar', {
+      templateUrl: 'vistas/IntroduccionEnergiaSolar.html'
+    })
     .otherwise({
       redirectTo: '/inicio' // Página por defecto
     });
